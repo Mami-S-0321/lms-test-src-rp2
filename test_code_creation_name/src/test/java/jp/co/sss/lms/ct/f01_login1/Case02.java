@@ -13,7 +13,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-
 /**
  * 結合テスト ログイン機能①
  * ケース02
@@ -72,6 +71,10 @@ public class Case02 {
 		//エラー表示待ち
 		visibilityTimeout(By.className("error"), 10);
 		getEvidence(new Object() {});
+
+		//エラーメッセージの値が一致しているかどうか
+		final String error = webDriver.findElement(By.className("help-inline")).getText();
+		assertEquals("* ログインに失敗しました。", error);
 
 	}
 
