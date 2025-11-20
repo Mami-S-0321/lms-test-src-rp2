@@ -68,9 +68,13 @@ public class Case03 {
 		password.sendKeys("StudentAA01");
 		login.click();
 
-		//エラー表示待ち
+		//ログイン後の表示待ち
 		visibilityTimeout(By.className("btn"), 10);
 		getEvidence(new Object() {});
+		
+		//ログインできているかどうかの確認
+		final String loginUser = webDriver.findElement(By.tagName("small")).getText();
+		assertEquals("ようこそ受講生ＡＡ１さん", loginUser);
 		
 	}
 
