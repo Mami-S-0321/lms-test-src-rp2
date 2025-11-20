@@ -43,7 +43,7 @@ public class Case01 {
 		WebDriverUtils.goTo("http://localhost:8080/lms");
 		//タイトルの値とログインボタンの値が一致しているかどうか
 		String title = WebDriverUtils.webDriver.getTitle();
-		assertEquals("ログイン | LMS", title);
+		assertEquals("ログイン | LMS",title);
 		//ログイン画面のエビデンス取得
 		WebDriverUtils.getEvidence(new Object() {
 		});
