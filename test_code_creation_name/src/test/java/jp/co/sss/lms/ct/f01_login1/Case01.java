@@ -1,6 +1,7 @@
 package jp.co.sss.lms.ct.f01_login1;
 
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
+import static org.junit.Assert.*;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -9,6 +10,8 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+
+import jp.co.sss.lms.ct.util.WebDriverUtils;
 
 /**
  * 結合テスト ログイン機能①
@@ -36,6 +39,14 @@ public class Case01 {
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
 		// TODO ここに追加
+		//画面遷移
+		WebDriverUtils.goTo("http://localhost:8080/lms");
+		//タイトルの値とログインボタンの値が一致しているかどうか
+		String title = WebDriverUtils.webDriver.getTitle();
+		assertEquals("ログイン | LMS", title);
+		//ログイン画面のエビデンス取得
+		WebDriverUtils.getEvidence(new Object() {
+		});
 	}
 
 }
