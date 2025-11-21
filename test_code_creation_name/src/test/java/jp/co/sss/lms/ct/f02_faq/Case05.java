@@ -3,7 +3,6 @@ package jp.co.sss.lms.ct.f02_faq;
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
 import static org.junit.Assert.*;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -28,11 +27,11 @@ public class Case05 {
 		createDriver();
 	}
 
-	/** 後処理 */
-	@AfterAll
-	static void after() {
-		closeDriver();
-	}
+	/** 後処理 *//*
+				@AfterAll
+				static void after() {
+				closeDriver();
+				}*/
 
 	@Test
 	@Order(1)
@@ -65,7 +64,7 @@ public class Case05 {
 		loginId.clear();
 		loginId.sendKeys("StudentAA01");
 		password.clear();
-		password.sendKeys("StudentAA01");
+		password.sendKeys("StudentAA0");
 		login.click();
 
 		//ログインできているかどうかの確認
@@ -87,12 +86,15 @@ public class Case05 {
 		final WebElement toggle = webDriver.findElement(By.className("dropdown-toggle"));
 		toggle.click();
 
-		//ヘルプリンクを押下
-		final WebElement helpButton = webDriver.findElement(By.cssSelector("a"));
-		helpButton.click();
+		//ログイン後の表示待ち
+		visibilityTimeout(By.className("dropdown-toggle"), 10);
+		getEvidence(new Object() {
+		}, "1");
 
-		//ヘルプ画面遷移
-		goTo("http://localhost:8080/lms/help");
+		//ヘルプリンクを押下
+		final WebElement helpButton = webDriver.findElement(
+				By.cssSelector("#nav-content > ul:nth-child(1) > li.dropdown.open > ul > li:nth-child(4) > a"));
+		helpButton.click();
 
 		//ヘルプ画面に遷移できてるかどうかの確認
 		final String help = webDriver.findElement(By.tagName("h2")).getText();
@@ -101,22 +103,26 @@ public class Case05 {
 		//ヘルプ画面表示待ち
 		visibilityTimeout(By.tagName("h2"), 10);
 		getEvidence(new Object() {
-		});
+		}, "2");
 	}
 
 	@Test
 	@Order(4)
 	@DisplayName("テスト04 「よくある質問」リンクからよくある質問画面を別タブに開く")
-	void test04() {
+	void test04() throws InterruptedException {
 		// TODO ここに追加
 		//「よくある質問」リンクボタン押下
-		final WebElement question = webDriver.findElement(By.cssSelector("a"));
+		final WebElement question = webDriver
+				.findElement(By.cssSelector("#main > div:nth-child(4) > div.panel-body > p > a"));
 		question.click();
 
-		//「よくある質問」画面遷移
-		goTo("http://localhost:8080/lms/faq");
+		Thread.sleep(5000);
 
-		//よくある質問」画面に遷移できてるかどうかの確認
+		//別タブで表示
+		Object[] windowHandles = webDriver.getWindowHandles().toArray();
+		webDriver.switchTo().window((String) windowHandles[1]);
+
+		//よくある質問画面に遷移できてるかどうかの確認
 		final String help = webDriver.findElement(By.tagName("h2")).getText();
 		assertEquals("よくある質問", help);
 
@@ -129,15 +135,56 @@ public class Case05 {
 	@Test
 	@Order(5)
 	@DisplayName("テスト05 キーワード検索で該当キーワードを含む検索結果だけ表示")
-	void test05() {
+	void test05() throws InterruptedException {
 		// TODO ここに追加
+		//キーワード検索で該当キーワードを入力
+		final WebElement text = webDriver.findElement(By.className("form-control"));
+		final WebElement submit = webDriver.findElement(By.className("btn-primary"));
+
+		text.clear();
+		text.sendKeys("研修");
+		submit.click();
+
+		getEvidence(new Object() {
+		}, "1");
+
+		//指定位置までスクロール
+		scrollBy("1000");
+
+		//検索結果表示待ち
+		Thread.sleep(5000);
+
+		//該当キーワードを含む検索結果が表示されているかどうか
+		final boolean resultChecker = webDriver.findElement(By.className("table")).getText().contains("研修");
+		assertTrue(resultChecker);
+
+		getEvidence(new Object() {
+		}, "2");
+
 	}
 
 	@Test
 	@Order(6)
 	@DisplayName("テスト06 「クリア」ボタン押下で入力したキーワードを消去")
-	void test06() {
+	void test06() throws InterruptedException {
 		// TODO ここに追加
+		//指定位置までスクロール
+		scrollBy("-1000");
+
+		//スクロール待ち
+		Thread.sleep(5000);
+
+		//クリアボタン押下
+		final WebElement clearSubmit = webDriver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/form/fieldset/div[2]/div/input[2]"));
+		clearSubmit.click();
+
+		//該当キーワードがクリアになっているかどうか
+		final String clearChecker = webDriver.findElement(By.className("form-control")).getText();
+		assertEquals("", clearChecker);
+
+		getEvidence(new Object() {
+		});
+
 	}
 
 }
