@@ -32,6 +32,7 @@ public class Case04 {
 	@AfterAll
 	static void after() {
 		closeDriver();
+
 	}
 
 	@Test
@@ -65,7 +66,7 @@ public class Case04 {
 		loginId.clear();
 		loginId.sendKeys("StudentAA01");
 		password.clear();
-		password.sendKeys("StudentAA01");
+		password.sendKeys("StudentAA0");
 		login.click();
 
 		//ログインできているかどうかの確認
@@ -88,12 +89,15 @@ public class Case04 {
 		final WebElement toggle = webDriver.findElement(By.className("dropdown-toggle"));
 		toggle.click();
 
-		//ヘルプリンクを押下
-		final WebElement helpButton = webDriver.findElement(By.cssSelector("a"));
-		helpButton.click();
+		//ログイン後の表示待ち
+		visibilityTimeout(By.className("dropdown-toggle"), 10);
+		getEvidence(new Object() {
+		}, "1");
 
-		//ヘルプ画面遷移
-		goTo("http://localhost:8080/lms/help");
+		//ヘルプリンクを押下
+		final WebElement helpButton = webDriver.findElement(
+				By.cssSelector("#nav-content > ul:nth-child(1) > li.dropdown.open > ul > li:nth-child(4) > a"));
+		helpButton.click();
 
 		//ヘルプ画面に遷移できてるかどうかの確認
 		final String help = webDriver.findElement(By.tagName("h2")).getText();
@@ -102,23 +106,27 @@ public class Case04 {
 		//ヘルプ画面表示待ち
 		visibilityTimeout(By.tagName("h2"), 10);
 		getEvidence(new Object() {
-		});
+		}, "2");
 
 	}
 
 	@Test
 	@Order(4)
 	@DisplayName("テスト04 「よくある質問」リンクからよくある質問画面を別タブに開く")
-	void test04() {
+	void test04() throws InterruptedException {
 		// TODO ここに追加
 		//「よくある質問」リンクボタン押下
-		final WebElement question = webDriver.findElement(By.cssSelector("a"));
+		final WebElement question = webDriver
+				.findElement(By.cssSelector("#main > div:nth-child(4) > div.panel-body > p > a"));
 		question.click();
 
-		//「よくある質問」画面遷移
-		goTo("http://localhost:8080/lms/faq");
+		Thread.sleep(5000);
 
-		//よくある質問」画面に遷移できてるかどうかの確認
+		//別タブで表示
+		Object[] windowHandles = webDriver.getWindowHandles().toArray();
+		webDriver.switchTo().window((String) windowHandles[1]);
+
+		//よくある質問画面に遷移できてるかどうかの確認
 		final String help = webDriver.findElement(By.tagName("h2")).getText();
 		assertEquals("よくある質問", help);
 

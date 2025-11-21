@@ -65,7 +65,7 @@ public class Case03 {
 		loginId.clear();
 		loginId.sendKeys("StudentAA01");
 		password.clear();
-		password.sendKeys("StudentAA01");
+		password.sendKeys("StudentAA0");
 		login.click();
 
 		//ログイン後の表示待ち
