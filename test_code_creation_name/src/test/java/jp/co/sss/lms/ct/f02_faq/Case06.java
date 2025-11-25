@@ -143,9 +143,6 @@ public class Case06 {
 				.findElement(By.cssSelector("#main > div.well.bs-component > fieldset > ul:nth-child(2) > li > a"));
 		category.click();
 
-		getEvidence(new Object() {
-		}, "1");
-
 		//指定位置までスクロール
 		scrollBy("1000");
 
@@ -158,7 +155,7 @@ public class Case06 {
 		assertTrue(resultChecker);
 
 		getEvidence(new Object() {
-		}, "2");
+		});
 
 	}
 
