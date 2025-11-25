@@ -3,6 +3,7 @@ package jp.co.sss.lms.ct.f02_faq;
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
 import static org.junit.Assert.*;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -27,11 +28,11 @@ public class Case05 {
 		createDriver();
 	}
 
-	/** 後処理 *//*
-				@AfterAll
-				static void after() {
-				closeDriver();
-				}*/
+	/** 後処理 */
+	@AfterAll
+	static void after() {
+		closeDriver();
+	}
 
 	@Test
 	@Order(1)
@@ -175,7 +176,8 @@ public class Case05 {
 		Thread.sleep(5000);
 
 		//クリアボタン押下
-		final WebElement clearSubmit = webDriver.findElement(By.xpath("//*[@id=\"main\"]/div[1]/form/fieldset/div[2]/div/input[2]"));
+		final WebElement clearSubmit = webDriver
+				.findElement(By.xpath("//*[@id=\"main\"]/div[1]/form/fieldset/div[2]/div/input[2]"));
 		clearSubmit.click();
 
 		//該当キーワードがクリアになっているかどうか
