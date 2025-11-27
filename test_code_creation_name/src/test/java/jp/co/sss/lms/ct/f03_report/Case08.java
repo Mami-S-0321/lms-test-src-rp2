@@ -116,9 +116,9 @@ public class Case08 {
 		// TODO ここに追加
 		//指定位置までスクロール
 		scrollBy("1000");
-		
+
 		getEvidence(new Object() {
-		},"1");
+		}, "1");
 
 		//「提出済み週報【デモ】を確認する」ボタンを押下
 		final WebElement DailyReportcheck = webDriver
@@ -134,7 +134,7 @@ public class Case08 {
 		assertEquals("週報【デモ】 2022年10月2日", report);
 
 		getEvidence(new Object() {
-		},"2");
+		}, "2");
 	}
 
 	@Test
@@ -144,6 +144,10 @@ public class Case08 {
 		// TODO ここに追加
 		//指定位置までスクロール
 		scrollBy("1000");
+		
+		//修正前のエビデンス取得
+		getEvidence(new Object() {
+		}, "1");
 
 		//所感を修正
 		final WebElement ReportEditing = webDriver.findElement(By.cssSelector("#content_1"));
@@ -156,7 +160,7 @@ public class Case08 {
 		ReportEditing.sendKeys("報告書を追記しました。");
 
 		getEvidence(new Object() {
-		}, "1");
+		}, "2");
 
 		submit.click();
 
@@ -168,7 +172,7 @@ public class Case08 {
 		assertEquals("セクション詳細", section);
 
 		getEvidence(new Object() {
-		}, "2");
+		}, "3");
 
 	}
 
@@ -201,9 +205,9 @@ public class Case08 {
 		// TODO ここに追加
 		//指定位置までスクロール
 		scrollBy("1000");
-		
+
 		getEvidence(new Object() {
-		},"1");
+		}, "1");
 
 		//該当レポートの「詳細」ボタンを押下
 		final WebElement ReportDetail = webDriver.findElement(By.xpath(
@@ -222,7 +226,7 @@ public class Case08 {
 		assertTrue(EdtingCheak);
 
 		getEvidence(new Object() {
-		},"2");
+		}, "2");
 	}
 
 }
