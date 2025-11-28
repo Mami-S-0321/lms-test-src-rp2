@@ -3,6 +3,7 @@ package jp.co.sss.lms.ct.f04_attendance;
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
 import static org.junit.Assert.*;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -31,10 +32,10 @@ public class Case12 {
 	}
 
 	/** 後処理 */
-	/*@AfterAll
+	@AfterAll
 	static void after() {
 		closeDriver();
-	}*/
+	}
 
 	@Test
 	@Order(1)
