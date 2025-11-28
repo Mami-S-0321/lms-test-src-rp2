@@ -54,7 +54,7 @@ public class Case10 {
 
 	@Test
 	@Order(2)
-	@DisplayName("テスト02 管理者アカウントでログイン")
+	@DisplayName("テスト02 初回ログイン済みの受講生ユーザーでログイン")
 	void test02() {
 		// TODO ここに追加
 		//ログインの際に必要な値取得
@@ -85,7 +85,7 @@ public class Case10 {
 	@SuppressWarnings("static-access")
 	@Test
 	@Order(3)
-	@DisplayName("テスト03 上部メニューの「勤怠」リンクから、勤怠管理画面に遷移する。")
+	@DisplayName("テスト03 上部メニューの「勤怠」リンクから勤怠管理画面に遷移")
 	void test03() {
 		// TODO ここに追加
 		//「勤怠」リンクを押下
@@ -110,7 +110,7 @@ public class Case10 {
 
 	@Test
 	@Order(4)
-	@DisplayName("テスト04 「出勤」ボタンを押下し、出勤時間を登録する。")
+	@DisplayName("テスト04 「出勤」ボタンを押下し出勤時間を登録")
 	void test04() {
 		// TODO ここに追加
 		//「出勤」ボタンを押下
@@ -135,7 +135,7 @@ public class Case10 {
 
 	@Test
 	@Order(5)
-	@DisplayName("テスト05 「退勤」ボタンを押下し、退勤時間を登録する。")
+	@DisplayName("テスト05 「退勤」ボタンを押下し退勤時間を登録")
 	void test05() throws InterruptedException {
 		// TODO ここに追加
 		//「退勤」ボタンを押下
