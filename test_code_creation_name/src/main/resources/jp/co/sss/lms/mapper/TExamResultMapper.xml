@@ -42,7 +42,7 @@
 			<result column="point" property="point" />
 			<result column="first_create_date" property="date" />
 			<!-- Task.34 試験の解答時間の表示 -->
-			<result column="time" property="time" />
+			
 		</collection>
 	</resultMap>
 	<select id="getExamDetailDto" resultMap="examDetailDto">
